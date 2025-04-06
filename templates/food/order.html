@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+{% load static %}
+{% load humanize %}
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <title>Order - EVOS FastFood</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <!-- Link to the CSS from the index page -->
+    <link rel="icon" href="{% static 'dashboard/assets/images/favicon.svg' %}" type="image/x-icon">
+    <link href="{% static 'food/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'food/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'food/css/modal.css' %}" rel="stylesheet">
+    <!-- Google Web Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Lora:wght@600;700&display=swap" rel="stylesheet">
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" role="status"></div>
+    </div>
+    <!-- Spinner End -->
+
+    <!-- Navbar (Same as Index Page) -->
+    <div class="container-fluid fixed-top px-0 wow fadeIn" data-wow-delay="0.1s">
+        <nav class="navbar navbar-expand-lg navbar-light py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
+            <a href="{% url 'index' %}" class="navbar-brand ms-4 ms-lg-0">
+                <h1 style="background-color: #FFFFFF" class="fw-bold text-primary m-0">E<span class="text-secondary">vo</span>s</h1>
+            </a>
+            <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto p-4 p-lg-0">
+                    <a href="index.html" class="nav-item nav-link">Home</a>
+                    <a href="about.html" class="nav-item nav-link">About Us</a>
+                    <a href="product.html" class="nav-item nav-link">Products</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                        <div class="dropdown-menu m-0">
+                            <a href="blog.html" class="dropdown-item">Blog Grid</a>
+                            <a href="feature.html" class="dropdown-item">Our Features</a>
+                            <a href="testimonial.html" class="dropdown-item">Testimonial</a>
+                            <a href="404.html" class="dropdown-item">404 Page</a>
+                        </div>
+                    </div>
+                    <a href="contact.html" class="nav-item nav-link">Contact Us</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Order Form Section -->
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h2 class="text-center mb-4">Buyurtmani Tastiqlash</h2>
+                <form id="second_form" method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="number-id" class="form-label">Telefon Raqam*</label>
+                        <input type="text" class="form-control" id="number-id" name="phone_number" placeholder="Telefon raqamingizni kiriting" onchange="validate()">
+                        <small id="phoneError" class="text-danger"></small>
+                    </div>
+                    <div id="second_div" style="visibility: hidden">
+
+                        <div class="mb-3">
+                            <label for="first_name" class="form-label">Ism*</label>
+                            <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Ismingizni kiriting">
+                        </div>
+                        <div class="mb-3">
+                            <label for="last_name" class="form-label">Familiya*</label>
+                            <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Familiyangizni kiriting">
+                        </div>
+                        <div class="mb-3">
+                            <label  class="form-label">To'lov Turi*</label>
+                            <select class="form-select"  name="payment_type">
+                                <option value="" disabled selected>To'lov Turini tanlang</option>
+                                <option id="1" value="1">Naqt</option>
+                                <option id="2" value="2">Karta</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Manzil*</label>
+                            <textarea class="form-control" id="address" name="address" rows="3" placeholder="Yetkazib berish manzilingizni kiriting"></textarea>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button type="button" class="btn btn-primary" id="order_btn" onclick="order_func()">Yuborish</button>
+<!--                    <button class="button" id="order_btn" onclick="order_func()" type="button">Отправить</button>-->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Button -->
+	<button id="cart" class="cart" data-totalitems="0" onclick="openCartModal()">
+        <span id="home_price" style="color:yellow"><p style="color:white">Korzinka:</p>{{ total_price|intcomma}} <span>UZS</span></span>
+    </button>
+
+
+<!-- Cart Modal -->
+<div id="cartModal" class="modal">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title">Shopping Cart</h5>
+                <button type="button" class="btn-close" onclick="closeCartModal()" aria-label="Close"></button>
+            </div>
+            <!-- Modal Body -->
+
+
+            <div class="modal-body" id="order-list">
+                {% for order in orders %}
+                <div class="modal-row">
+                    <div class="modal-col-12">
+                        <div class="modal-item">
+                            <div class="modal-box">
+                                <div class="modal-box__img"><img class="img" src="/media/{{ order.product.image }}" alt=""></div>
+                                <div class="modal-box__content">
+                                    <div class="modal-box__title mb-3">{{ order.product.title}} </div>
+                                    <div class="1b"></div>
+                                    <div class="modal-box__text text-muted">{{ order.product.description}}</div>
+                                    <div class="box__const">
+                                        <div class="modal-box__cost text-primary">{{order.count}} x {{ order.product.price}} UZS</div>
+                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+          </div>
+
+
+			<div class="modal-total">
+            <div class="modal-title">Итого:</div>
+            <div class="modal-cost" id="total_price">{{ total_price|intcomma}} <span>UZS</span></div>
+			</div>
+
+			<div class="modal-buttons">
+				<button class="modal-clear" onclick="delete_orders()"><a href="{% url 'index' %}"> Очистить</a></button>
+                <button class="modal-order"><a href="{% url 'main_order' %}">Заказать</a></button>
+			</div>
+
+		</div>
+    </div>
+    </div>
+
+    <!-- Footer (Same as Index Page) -->
+    <footer><div class="container-fluid bg-dark footer pt-5 wow fadeIn" data-wow-delay="0.1s">
+
+    <p class="container-fluid bg-dark footer pt-5 wow fadeIn" data-wow-delay="0.1s"
+            >EVOS &#9829; crafted by Team <a href="#" target="_blank"></a> Distributed by <a href="#">FotimaNazarova</a>.</p
+          >
+
+<!--        <div class="container py-5">-->
+<!--            <div class="row g-5">-->
+<!--                <div class="col-lg-3 col-md-6">-->
+<!--                    <h1 class="fw-bold text-primary mb-4">F<span class="text-secondary">oo</span>dy</h1>-->
+<!--                    <p>Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita</p>-->
+<!--                    <div class="d-flex pt-2">-->
+<!--                        <a class="btn btn-square btn-outline-light rounded-circle me-1" href=""><i class="fab fa-twitter"></i></a>-->
+<!--                        <a class="btn btn-square btn-outline-light rounded-circle me-1" href=""><i class="fab fa-facebook-f"></i></a>-->
+<!--                        <a class="btn btn-square btn-outline-light rounded-circle me-1" href=""><i class="fab fa-youtube"></i></a>-->
+<!--                        <a class="btn btn-square btn-outline-light rounded-circle me-0" href=""><i class="fab fa-linkedin-in"></i></a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col-lg-3 col-md-6">-->
+<!--                    <h4 class="text-light mb-4">Address</h4>-->
+<!--                    <p><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</p>-->
+<!--                    <p><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>-->
+<!--                    <p><i class="fa fa-envelope me-3"></i>info@example.com</p>-->
+<!--                </div>-->
+<!--                <div class="col-lg-3 col-md-6">-->
+<!--                    <h4 class="text-light mb-4">Quick Links</h4>-->
+<!--                    <a class="btn btn-link" href="">About Us</a>-->
+<!--                    <a class="btn btn-link" href="">Contact Us</a>-->
+<!--                    <a class="btn btn-link" href="">Our Services</a>-->
+<!--                    <a class="btn btn-link" href="">Terms & Condition</a>-->
+<!--                    <a class="btn btn-link" href="">Support</a>-->
+<!--                </div>-->
+<!--                <div class="col-lg-3 col-md-6">-->
+<!--                    <h4 class="text-light mb-4">Newsletter</h4>-->
+<!--                    <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>-->
+<!--                    <div class="position-relative mx-auto" style="max-width: 400px;">-->
+<!--                        <input class="form-control bg-transparent w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">-->
+<!--                        <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="container-fluid copyright">-->
+<!--            <div class="container">-->
+<!--                <div class="row">-->
+<!--                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">-->
+<!--                        &copy; <a href="#">Your Site Name</a>, All Right Reserved.-->
+<!--                    </div>-->
+<!--                    <div class="col-md-6 text-center text-md-end">-->
+<!--                        Designed By <a href="https://htmlcodex.com">HTML Codex</a>-->
+<!--                        <br>Distributed By: <a href="https://themewagon.com" target="_blank">ThemeWagon</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+    </div></footer>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'food/js/main.js' %}"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const categoryContainers = document.querySelectorAll(".category-container");
+
+    // Add click event listener to each filter button
+    filterButtons.forEach(button => {
+        button.addEventListener("click", function () {
+            const selectedCategory = this.getAttribute("data-filter");
+
+            // Remove 'active' class from all buttons
+            filterButtons.forEach(btn => btn.classList.remove("active"));
+            this.classList.add("active");
+
+            // Show/hide category containers based on the selected category
+            categoryContainers.forEach(container => {
+                const containerCategory = container.getAttribute("data-category");
+                if (selectedCategory === "all" || containerCategory === selectedCategory) {
+                    container.style.display = "block"; // Show matching containers
+                } else {
+                    container.style.display = "none"; // Hide non-matching containers
+                }
+            });
+
+            // Trigger a reflow to fix layout issues
+            document.getElementById("product-list").offsetHeight;
+        });
+    });
+});
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const modal = document.getElementById("productModal");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalImage = document.getElementById("modalImage");
+    const modalDescription = document.getElementById("modalDescription");
+    const modalPrice = document.getElementById("modalPrice");
+
+    // Get all "View detail" buttons
+    const viewDetailButtons = document.querySelectorAll(".view-detail-btn");
+
+    // Add click event listener to each button
+    viewDetailButtons.forEach(button => {
+        button.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            // Get product data from the parent product-item
+            const productItem = this.closest(".product-item");
+            const title = productItem.getAttribute("data-title");
+            const image = productItem.getAttribute("data-image");
+            const description = productItem.getAttribute("data-description");
+            const price = productItem.getAttribute("data-price");
+
+            // Populate modal with product details
+            modalTitle.textContent = title;
+            modalImage.src = image;
+            modalDescription.textContent = description;
+            modalPrice.textContent = `${price}`;
+
+            // Show the modal
+            modal.style.display = "block";
+        });
+    });
+
+    // Close modal when clicking the close button or outside the modal
+    modal.addEventListener("click", function (e) {
+        if (e.target === modal || e.target.classList.contains("btn-close")) {
+            modal.style.display = "none"; // Hide the modal
+        }
+    });
+});
+</script>
+<script>
+    var loadFile = function(event) {
+        var reader = new FileReader();
+        reader.onload = function() {
+            var output = document.getElementById('output');
+            output.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    };
+</script>
+    <script>
+            // Open Cart Modal
+    function openCartModal() {
+        const cartModal = document.getElementById("cartModal");
+        cartModal.style.display = "block";
+    }
+
+    // Close Cart Modal
+    function closeCartModal() {
+        const cartModal = document.getElementById("cartModal");
+        cartModal.style.display = "none";
+    }
+    </script>
+
+	<script>
+        var loadFile = function(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                var output = document.getElementById('output');
+                output.src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        };
+    </script>
+
+<script>
+    function addProduct(product_id, img_src, title, desc, price) {
+        var img_src = "/media/" + img_src
+        var title = title
+        var desc = desc
+        var price = price
+
+        console.log(img_src, title, desc, price)
+        var mydiv = document.createElement('div');
+        var total = localStorage.getItem("total_cost");
+        console.log(total);
+        var total = parseInt(total) + parseInt(price);
+        console.log(total);
+        localStorage.setItem("total_cost", total)
+        document.getElementById('cost').innerHTML = total * 1000
+
+        var mycode = '<div class="modal-box"><div class="modal-box__img"><img class="img" src=' + img_src + ' alt=""></div><div class="modal-box__content"><div class="modal-box__title">' + title + '</div><div class="modal-box__text">' + desc + '</div><div class="modal-box__const"><div class="modal-box__cost">' + price + ' UZS</div></div></div></div>'
+        mydiv.style.marginBottom = '20px';
+        mydiv.className += "modal-item";
+        mydiv.innerHTML = mycode;
+        document.getElementById("order-list").appendChild(mydiv);
+    }
+
+    function clearAll() {
+        var node = document.getElementById("order-list");
+        node.innerHTML = "";
+    }
+
+    <!--next-->
+    function getCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+
+
+    function setCookie(key, value) {
+        var now = new Date();
+        now.setDate(now.getDate() + 1);
+
+        document.cookie = key + "=" + value + ";" + "expires=" + now.toUTCString() + ";";
+    }
+
+    function check_orders(product_id) {
+        orders = JSON.parse(getCookie("orders"));
+
+        if (orders == null) {
+            orders = {};
+        }
+        if (product_id + "" in orders) {
+            orders[product_id + ""] = orders[product_id + ""] + 1;
+        } else {
+            orders[product_id + ""] = 1;
+        }
+        return orders;
+    }
+
+    function delete_orders() {
+        document.cookie = "orders=" + JSON.stringify({}) + ";"
+        document.cookie = "total_price=0;"
+        var cartTotal = modal-cart.attr('data-totalitems');
+        var newCartTotal = 0;
+        modal-cart.addClass('shake').attr('data-totalitems', newCartTotal);
+
+        orders = document.getElementById("order-list");
+        total_price = document.getElementById("total_price");
+        home_price = document.getElementById("home_price");
+
+        orders.innerHTML = "";
+        total_price.innerHTML = "0 <span> UZS</span>";
+        home_price.innerHTML = "0 <span> UZS</span>";
+
+        total_price.setAttribute("data-id", 0);
+    }
+
+
+    function cart_add(product_id) {
+        orders_list = document.getElementById("order-list");
+        total_price = document.getElementById("total_price");
+        home_price = document.getElementById("home_price");
+
+        orders = check_orders(product_id);
+        orders_list.innerHTML = "";
+        setCookie("total_price", 0);
+
+        for (const key in orders) {
+            if (orders.hasOwnProperty(key)) {
+                $.ajax({
+                    type: 'GET',
+                    url: "{% url 'home_page' %}",
+                    data: {
+                        "product_id": parseInt(key)
+                    },
+                    success: function(response) {
+
+                        price = parseInt(getCookie("total_price")) + parseInt(response["price"]) * parseInt(orders[key]);
+                        setCookie("total_price", price);
+
+                        total_price.innerHTML = price + " <span> UZS</span>"
+                        home_price.innerHTML = '<p style="color: white ">Korzinka:</p>' + price + " <span> UZS</span>"
+                        orders_list.innerHTML += '<div class="modal-row"><div class="modal-col-12"><div class="modal-item"><div class="modal-box"><div class="modal-box__img"> <img class="img" src="/media/' + response["image"] + '" alt=""></div><div class="modal-box__content"><div class="modal-box__title">' + response["title"] + '</div><div class="modal-box__text">' + response["description"] + '</div><div class="modal-box__const"><div class="modal-box__cost">' + orders[key] + ' x ' + response["price"] + ' UZS</div></div></div></div></div></div></div>';
+
+                      },
+                    error: function(response) {
+                        console.log(response)
+                    }
+                })
+
+            }
+        }
+        setCookie("orders", JSON.stringify(orders));
+
+
+    }
+
+
+    function order_func() {
+        order_list = document.getElementById("order-list")
+        order_btn = document.getElementById("order_btn")
+        if (order_list.innerHTML.trim() == "") {
+            alert("Sizda mahsulot mavjud emas!")
+            console.log("Sizda mahsulot mavjud emas!")
+        } else {
+            order_btn.setAttribute('type', 'submit');
+        }
+
+    }
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('.box__btn').on('click', function() {
+
+                var button = $(this);
+                var cart = $('#cart');
+                var cartTotal = cart.attr('data-totalitems');
+                var newCartTotal = parseInt(cartTotal) + 1;
+
+                button.addClass('sendtocart');
+                setTimeout(function() {
+                    button.removeClass('sendtocart');
+                    cart.addClass('shake').attr('data-totalitems', newCartTotal);
+<!--                    setTimeout(function() {-->
+<!--                        cart.removeClass('shake');-->
+<!--                    }, 500)-->
+                }, 1000)
+            })
+        })
+    </script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+
+   <script>
+        function validate() {
+
+            inputtxt = document.getElementById("number-id");
+            var phoneno = /^\(?([0-9]{3})\)?[-. ]?([0-9]{2})[-. ]?([0-9]{3})[-. ]?([0-9]{2})[-. ]?([0-9]{2})$/;
+
+            if (inputtxt.value.match(phoneno)) {
+
+                document.getElementById('second_div').style.visibility = 'visible';
+
+                $.ajax({
+                    type: 'GET',
+                    url: "{% url 'order_page' %}",
+                    data: {
+                        "phone_number": inputtxt.value
+                    },
+                    success: function(response) {
+                        var first_name = document.getElementById('first_name');
+                        var last_name = document.getElementById('last_name');
+                        first_name.value = response['first_name'];
+                        last_name.value = response['last_name'];
+
+                    },
+                    error: function(response) {
+                        console.log(response)
+                    }
+                })
+
+            } else {
+                alert("Telefon raqam mavjud emas");
+                document.getElementById('second_div').style.visibility = 'hidden';
+                return false;
+            }
+
+        }
+    </script>
+
+</body>
+</html>

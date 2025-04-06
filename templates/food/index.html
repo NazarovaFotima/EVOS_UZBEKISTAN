@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+{% load static %}
+{% load humanize %}
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="utf-8">
+    <title>EVOS FAST FOOD</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'dashboard/assets/images/favicon.svg' %}" type="image/x-icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Lora:wght@600;700&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'food/lib/animate/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'food/lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'food/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="{% static 'food/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'food/css/modal.css' %}" rel="stylesheet">
+
+    <!-- CSS for Hidden Products -->
+
+
+</head>
+
+<body>
+
+
+
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" role="status"></div>
+    </div>
+    <!-- Spinner End -->
+
+
+    <!-- Navbar Start -->
+    <div class="container-fluid fixed-top px-0 wow fadeIn" data-wow-delay="0.1s">
+        <div class="top-bar row gx-0 align-items-center d-none d-lg-flex">
+            <div class="col-lg-6 px-5 text-start">
+                <small><i class="fa fa-map-marker-alt me-2"></i>Toshkent, Chilonzor 12, 47</small>
+                <small class="ms-4"><i class="fa fa-envelope me-2"></i>evos123@gmail.com</small>
+            </div>
+            <div class="col-lg-6 px-5 text-end">
+                <small>Follow us:</small>
+                <a class="text-body ms-3" href=""><i class="fab fa-facebook-f"></i></a>
+                <a class="text-body ms-3" href=""><i class="fab fa-twitter"></i></a>
+                <a class="text-body ms-3" href=""><i class="fab fa-linkedin-in"></i></a>
+                <a class="text-body ms-3" href=""><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+
+        <nav class="navbar navbar-expand-lg navbar-light py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
+            <a href="{% url 'index' %}" class="navbar-brand ms-4 ms-lg-0">
+                <h1 style="background-color: #FFFFFF" class="fw-bold text-primary m-0">E<span class="text-secondary">vo</span>s</h1>
+            </a>
+            <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto p-4 p-lg-0">
+<!--                    <a href="index.html" class="nav-item nav-link">Home</a>-->
+                    <a href="https://evos.uz/uz/about/" class="nav-item nav-link">Biz haqimizda</a>
+                    <a href="{% url 'index' %}" class="nav-item nav-link active">Menu</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Bloglar</a>
+                        <div class="dropdown-menu m-0">
+                            <a href="https://evos.uz/news/" class="dropdown-item">Yangiliklar</a>
+                            <a href="https://evos.uz/branches/" class="dropdown-item">Filliallar</a>
+                            <a href="https://evos.uz/vacancy/" class="dropdown-item">Vakantlar</a>
+                            <a href="https://evos.uz/about/gallery/gallery-item/#gallery" class="dropdown-item">Sertifikatlar</a>
+                        </div>
+                    </div>
+                    <a href="https://evos.uz/contacts/" class="nav-item nav-link">Contacts</a>
+                </div>
+                <div class="d-none d-lg-flex ms-2">
+                    <a class="btn-sm-square bg-white rounded-circle ms-3" href="">
+                        <small class="fa fa-search text-body"></small>
+                    </a>
+                    <a class="btn-sm-square bg-white rounded-circle ms-3" href="">
+                        <small class="fa fa-user text-body"></small>
+                    </a>
+                    <a class="btn-sm-square bg-white rounded-circle ms-3" href="">
+<!--                        <small class="fa fa-shopping-bag text-body"></small>-->
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header mb-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container">
+<!--            <h1 class="display-3 mb-3 animated slideInDown">Products</h1>-->
+<!--            <nav aria-label="breadcrumb animated slideInDown">-->
+<!--                <ol class="breadcrumb mb-0">-->
+<!--                    <li class="breadcrumb-item"><a class="text-body" href="#">Home</a></li>-->
+<!--                    <li class="breadcrumb-item"><a class="text-body" href="#">Pages</a></li>-->
+<!--                    <li class="breadcrumb-item text-dark active" aria-current="page">Products</li>-->
+<!--                </ol>-->
+<!--            </nav>-->
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+
+
+<!-- Modal Structure -->
+<div id="productModal" class="modal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg animated-modal">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title">Mahsulot Tafsilot</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <img id="modalImage" src="" alt="Product Image" class="img-fluid rounded">
+                    </div>
+                    <div class="col-md-6">
+                        <h3 id="modalTitle" class="mb-3">Product Title</h3>
+                        <p id="modalDescription" class="text-muted">Product description goes here...</p>
+                        <p class="text-primary h4" id="modalPrice">$0.00</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+<!--                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Cart Button -->
+	<button id="cart" class="cart" data-totalitems="0" onclick="openCartModal()">
+        <span id="home_price" style="color:yellow"><p style="color:white">Korzinka:</p>{{ total_price|intcomma}} <span>UZS</span></span>
+    </button>
+
+
+<!-- Cart Modal -->
+<div id="cartModal" class="modal">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title">Xaridlar</h5>
+                <button type="button" class="btn-close" onclick="closeCartModal()" aria-label="Close"></button>
+            </div>
+            <!-- Modal Body -->
+
+
+            <div class="modal-body" id="order-list">
+                {% for order in orders %}
+                <div class="modal-row">
+                    <div class="modal-col-12">
+                        <div class="modal-item">
+                            <div class="modal-box">
+                                <div class="modal-box__img"><img class="img" src="/media/{{ order.product.image }}" alt=""></div>
+                                <div class="modal-box__content">
+                                    <div class="modal-box__title mb-3">{{ order.product.title}} </div>
+                                    <div class="1b"></div>
+                                    <div class="modal-box__text text-muted">{{ order.product.description}}</div>
+                                    <div class="box__const">
+                                        <div class="modal-box__cost text-primary h4">
+                                            {{order.count}} x {{ order.product.price}} UZS</div>
+                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+          </div>
+
+
+			<div class="modal-total">
+            <div class="modal-title">Jami:</div>
+            <div class="modal-cost" id="total_price">{{ total_price|intcomma}} <span>UZS</span></div>
+			</div>
+
+			<div class="modal-buttons">
+				<button class="modal-clear" onclick="delete_orders()"><a href="{% url 'index' %}"> Очистить</a></button>
+				<button class="modal-order" id="order_btn" onclick="order_func()">Заказать</button>
+			</div>
+
+		</div>
+    </div>
+    </div>
+
+
+<!-- Product Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row g-0 gx-5 align-items-end">
+                <div class="col-lg-6">
+                    <div class="section-header text-start mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+                        <h1 class="display-5 mb-3">Bizning Menu</h1>
+<!--                        <p>Tempor ut dolore lorem kasd vero ipsum sit eirmod sit. Ipsum diam justo sed rebum vero dolor duo.</p>-->
+                    </div>
+                </div>
+                <div class="col-lg-6 text-start text-lg-end wow slideInRight" data-wow-delay="0.1s">
+                    <ul class="nav nav-pills d-inline-flex justify-content-end mb-5">
+                        <li class="nav-item me-2">
+                            <button class="btn btn-outline-primary border-2 active filter-btn" data-filter="all">Barchasi</button>
+                        </li>
+                        {% for category in categories %}
+                        <li class="nav-item me-2">
+                            <button class="btn btn-outline-primary border-2 filter-btn" data-filter="{{ category.title|lower }}">{{ category.title }}</button>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Product List -->
+            <div id="product-list">
+                {% for category in categories %}
+                <div class="category-container" data-category="{{ category.title|lower }}">
+                    <h2 class="text-center mb-4">{{ category.title }}</h2>
+                    <div class="row g-4">
+                        {% for product in products %}
+                        {% if product.category.title|lower == category.title|lower %}
+                        <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="product-item" data-id="{{ product.id }}" data-title="{{ product.title }}" data-image="{{ product.image.url }}" data-description="{{ product.description }}" data-price="{{ product.price|intcomma }} UZB">
+                                <div class="position-relative bg-light overflow-hidden">
+                                    <img class="img-fluid w-100" src="{{ product.image.url }}" alt="">
+                                    <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">New</div>
+                                </div>
+                                <div class="text-center p-4">
+                                    <a class="d-block h5 mb-2" href="#">{{ product.title }}</a>
+                                    <span class="text-primary me-1">{{ product.price|intcomma }} UZB</span>
+<!--                                    <span class="text-body text-decoration-line-through">$29.00</span>-->
+                                </div>
+                                <div class="d-flex border-top">
+                                    <small class="w-50 text-center border-end py-2">
+                                        <a class="text-body view-detail-btn" href="#" data-id="{{ product.id }}"><i class="fa fa-eye text-primary me-2"></i>View detail</a>
+                                    </small>
+                                    <small class="w-50 text-center py-2" style="padding-left: 50px;">
+                                        <button class="box__btn" onclick="cart_add({{ product.id }})">
+                                            <img  src="{% static 'food/img/plus.png' %}" alt=""/><span class="cart-item"></span>
+                                        </button>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 text-center">
+        <button id="browse-more" class="btn btn-primary rounded-pill py-3 px-5 d-none">Browse More Products</button>
+    </div>
+
+<footer>
+    <p class="container-fluid bg-dark footer pt-5 wow fadeIn" data-wow-delay="0.1s"
+            >EVOS &#9829; crafted by Team <a href="#" target="_blank"></a> Distributed by <a href="#">FotimaNazarova</a>.</p
+          >
+</footer>
+
+    <!-- Product End -->
+
+
+
+
+<!--    &lt;!&ndash; Footer Start &ndash;&gt;-->
+<!--    <div class="container-fluid bg-dark footer pt-5 wow fadeIn" data-wow-delay="0.1s">-->
+<!--        <div class="container py-5">-->
+<!--            <div class="row g-5">-->
+<!--                <div class="col-lg-3 col-md-6">-->
+<!--                    <h1 class="fw-bold text-primary mb-4">F<span class="text-secondary">oo</span>dy</h1>-->
+<!--                    <p>Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita</p>-->
+<!--                    <div class="d-flex pt-2">-->
+<!--                        <a class="btn btn-square btn-outline-light rounded-circle me-1" href=""><i class="fab fa-twitter"></i></a>-->
+<!--                        <a class="btn btn-square btn-outline-light rounded-circle me-1" href=""><i class="fab fa-facebook-f"></i></a>-->
+<!--                        <a class="btn btn-square btn-outline-light rounded-circle me-1" href=""><i class="fab fa-youtube"></i></a>-->
+<!--                        <a class="btn btn-square btn-outline-light rounded-circle me-0" href=""><i class="fab fa-linkedin-in"></i></a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col-lg-3 col-md-6">-->
+<!--                    <h4 class="text-light mb-4">Address</h4>-->
+<!--                    <p><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</p>-->
+<!--                    <p><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>-->
+<!--                    <p><i class="fa fa-envelope me-3"></i>info@example.com</p>-->
+<!--                </div>-->
+<!--                <div class="col-lg-3 col-md-6">-->
+<!--                    <h4 class="text-light mb-4">Quick Links</h4>-->
+<!--                    <a class="btn btn-link" href="">About Us</a>-->
+<!--                    <a class="btn btn-link" href="">Contact Us</a>-->
+<!--                    <a class="btn btn-link" href="">Our Services</a>-->
+<!--                    <a class="btn btn-link" href="">Terms & Condition</a>-->
+<!--                    <a class="btn btn-link" href="">Support</a>-->
+<!--                </div>-->
+<!--                <div class="col-lg-3 col-md-6">-->
+<!--                    <h4 class="text-light mb-4">Newsletter</h4>-->
+<!--                    <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>-->
+<!--                    <div class="position-relative mx-auto" style="max-width: 400px;">-->
+<!--                        <input class="form-control bg-transparent w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">-->
+<!--                        <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="container-fluid copyright">-->
+<!--            <div class="container">-->
+<!--                <div class="row">-->
+<!--                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">-->
+<!--                        &copy; <a href="#">Your Site Name</a>, All Right Reserved.-->
+<!--                    </div>-->
+<!--                    <div class="col-md-6 text-center text-md-end">-->
+<!--                        &lt;!&ndash;/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/&ndash;&gt;-->
+<!--                        Designed By <a href="https://htmlcodex.com">HTML Codex</a>-->
+<!--                        <br>Distributed By: <a href="https://themewagon.com" target="_blank">ThemeWagon</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    &lt;!&ndash; Footer End &ndash;&gt;-->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'food/lib/wow/wow.min.js' %}"></script>
+    <script src="{% static 'food/lib/easing/easing.min.js' %}"></script>
+    <script src="{% static 'food/lib/waypoints/waypoints.min.js' %}"></script>
+    <script src="{% static 'food/lib/owlcarousel/owl.carousel.min.js' %}"></script>
+
+    <!-- Template Javascript -->
+    <script src="{% static 'food/js/main.js' %}"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const categoryContainers = document.querySelectorAll(".category-container");
+
+    // Add click event listener to each filter button
+    filterButtons.forEach(button => {
+        button.addEventListener("click", function () {
+            const selectedCategory = this.getAttribute("data-filter");
+
+            // Remove 'active' class from all buttons
+            filterButtons.forEach(btn => btn.classList.remove("active"));
+            this.classList.add("active");
+
+            // Show/hide category containers based on the selected category
+            categoryContainers.forEach(container => {
+                const containerCategory = container.getAttribute("data-category");
+                if (selectedCategory === "all" || containerCategory === selectedCategory) {
+                    container.style.display = "block"; // Show matching containers
+                } else {
+                    container.style.display = "none"; // Hide non-matching containers
+                }
+            });
+
+            // Trigger a reflow to fix layout issues
+            document.getElementById("product-list").offsetHeight;
+        });
+    });
+});
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const modal = document.getElementById("productModal");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalImage = document.getElementById("modalImage");
+    const modalDescription = document.getElementById("modalDescription");
+    const modalPrice = document.getElementById("modalPrice");
+
+    // Get all "View detail" buttons
+    const viewDetailButtons = document.querySelectorAll(".view-detail-btn");
+
+    // Add click event listener to each button
+    viewDetailButtons.forEach(button => {
+        button.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            // Get product data from the parent product-item
+            const productItem = this.closest(".product-item");
+            const title = productItem.getAttribute("data-title");
+            const image = productItem.getAttribute("data-image");
+            const description = productItem.getAttribute("data-description");
+            const price = productItem.getAttribute("data-price");
+
+            // Populate modal with product details
+            modalTitle.textContent = title;
+            modalImage.src = image;
+            modalDescription.textContent = description;
+            modalPrice.textContent = `${price}`;
+
+            // Show the modal
+            modal.style.display = "block";
+        });
+    });
+
+    // Close modal when clicking the close button or outside the modal
+    modal.addEventListener("click", function (e) {
+        if (e.target === modal || e.target.classList.contains("btn-close")) {
+            modal.style.display = "none"; // Hide the modal
+        }
+    });
+});
+</script>
+<script>
+    var loadFile = function(event) {
+        var reader = new FileReader();
+        reader.onload = function() {
+            var output = document.getElementById('output');
+            output.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    };
+</script>
+    <script>
+            // Open Cart Modal
+    function openCartModal() {
+        const cartModal = document.getElementById("cartModal");
+        cartModal.style.display = "block";
+    }
+
+    // Close Cart Modal
+    function closeCartModal() {
+        const cartModal = document.getElementById("cartModal");
+        cartModal.style.display = "none";
+    }
+    </script>
+
+	<script>
+        var loadFile = function(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                var output = document.getElementById('output');
+                output.src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        };
+    </script>
+
+<script>
+    function addProduct(product_id, img_src, title, desc, price) {
+        var img_src = "/media/" + img_src
+        var title = title
+        var desc = desc
+        var price = price
+
+        console.log(img_src, title, desc, price)
+        var mydiv = document.createElement('div');
+        var total = localStorage.getItem("total_cost");
+        console.log(total);
+        var total = parseInt(total) + parseInt(price);
+        console.log(total);
+        localStorage.setItem("total_cost", total)
+        document.getElementById('cost').innerHTML = total * 1000
+
+        var mycode = '<div class="modal-box"><div class="modal-box__img"><img class="img" src=' + img_src + ' alt=""></div><div class="modal-box__content"><div class="modal-box__title mb-3">' + title + '</div><div class="modal-box__text">' + desc + '</div><div class="modal-box__const"><div class="modal-box__cost text-primary h4">' + price + ' UZS</div></div></div></div>'
+        mydiv.style.marginBottom = '20px';
+        mydiv.className += "modal-item";
+        mydiv.innerHTML = mycode;
+        document.getElementById("order-list").appendChild(mydiv);
+    }
+
+    function clearAll() {
+        var node = document.getElementById("order-list");
+        node.innerHTML = "";
+    }
+
+    <!--next-->
+    function getCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+
+
+    function setCookie(key, value) {
+        var now = new Date();
+        now.setDate(now.getDate() + 1);
+
+        document.cookie = key + "=" + value + ";" + "expires=" + now.toUTCString() + ";";
+    }
+
+    function check_orders(product_id) {
+        orders = JSON.parse(getCookie("orders"));
+
+        if (orders == null) {
+            orders = {};
+        }
+        if (product_id + "" in orders) {
+            orders[product_id + ""] = orders[product_id + ""] + 1;
+        } else {
+            orders[product_id + ""] = 1;
+        }
+        return orders;
+    }
+
+    function delete_orders() {
+        document.cookie = "orders=" + JSON.stringify({}) + ";"
+        document.cookie = "total_price=0;"
+        var cartTotal = modal-cart.attr('data-totalitems');
+        var newCartTotal = 0;
+        modal-cart.addClass('shake').attr('data-totalitems', newCartTotal);
+
+        orders = document.getElementById("order-list");
+        total_price = document.getElementById("total_price");
+        home_price = document.getElementById("home_price");
+
+        orders.innerHTML = "";
+        total_price.innerHTML = "0 <span> UZS</span>";
+        home_price.innerHTML = "0 <span> UZS</span>";
+
+        total_price.setAttribute("data-id", 0);
+    }
+
+
+    function cart_add(product_id) {
+        orders_list = document.getElementById("order-list");
+        total_price = document.getElementById("total_price");
+        home_price = document.getElementById("home_price");
+
+        orders = check_orders(product_id);
+        orders_list.innerHTML = "";
+        setCookie("total_price", 0);
+
+        for (const key in orders) {
+            if (orders.hasOwnProperty(key)) {
+                $.ajax({
+                    type: 'GET',
+                    url: "{% url 'home_page' %}",
+                    data: {
+                        "product_id": parseInt(key)
+                    },
+                    success: function(response) {
+
+                        price = parseInt(getCookie("total_price")) + parseInt(response["price"]) * parseInt(orders[key]);
+                        setCookie("total_price", price);
+
+                        total_price.innerHTML = price + " <span> UZS</span>"
+                        home_price.innerHTML = '<p style="color: white ">Korzinka:</p>' + price + " <span> UZS</span>"
+                        orders_list.innerHTML += '<div class="modal-row"><div class="modal-col-12"><div class="modal-item"><div class="modal-box"><div class="modal-box__img"> <img class="img" src="/media/' + response["image"] + '" alt=""></div><div class="modal-box__content"><div class="modal-box__title mb-3">' + response["title"] + '</div><div class="modal-box__text">' + response["description"] + '</div><div class="modal-box__const"><div class="modal-box__cost text-primary h4">' + orders[key] + ' x ' + response["price"] + ' UZS</div></div></div></div></div></div></div>';
+
+                      },
+                    error: function(response) {
+                        console.log(response)
+                    }
+                })
+
+            }
+        }
+        setCookie("orders", JSON.stringify(orders));
+
+
+    }
+
+    function order_func() {
+        order_list = document.getElementById("order-list")
+        order_btn = document.getElementById("order_btn")
+        if (order_list.innerHTML.trim() == "") {
+            alert("Sizda mahsulot mavjud emas!")
+            console.log("Sizda mahsulot mavjud emas!")
+        } else {
+            window.location.href = "{% url 'main_order' %}";
+        }
+
+    }
+</script>
+    <script>
+        $(document).ready(function() {
+            $('.box__btn').on('click', function() {
+
+                var button = $(this);
+                var cart = $('#cart');
+                var cartTotal = cart.attr('data-totalitems');
+                var newCartTotal = parseInt(cartTotal) + 1;
+
+                button.addClass('sendtocart');
+                setTimeout(function() {
+                    button.removeClass('sendtocart');
+                    cart.addClass('shake').attr('data-totalitems', newCartTotal);
+<!--                    setTimeout(function() {-->
+<!--                        cart.removeClass('shake');-->
+<!--                    }, 500)-->
+                }, 1000)
+            })
+        })
+    </script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+</body>
+</html>

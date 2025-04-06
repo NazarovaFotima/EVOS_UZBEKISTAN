@@ -1,0 +1,131 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+ <!-- [ Header Topbar ] start -->
+{% include 'dashboard/topbar2.html' %}
+<!-- [ Header ] end -->
+
+
+
+  <!-- [ Main Content ] start -->
+  <div class="pc-container">
+    <div class="pc-content">
+      <!-- [ breadcrumb ] start -->
+      <div class="page-header">
+        <div class="page-block">
+          <div class="row align-items-center">
+            <div class="col-md-12">
+              <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'main_dashboard' %}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'category_list' %}">Category list</a></li>
+                {% if 'edit' == edit %}
+                <li class="breadcrumb-item" aria-current="page">Edit Category</li>
+                {% else %}
+                <li class="breadcrumb-item" aria-current="page">Add New Category</li>
+                {% endif %}
+              </ul>
+            </div>
+            <div class="col-md-12">
+              <div class="page-header-title">
+                {% if 'edit' == edit %}
+                  <h2 class="mb-0">Edit Category</h2>
+                {% else %}
+                  <h2 class="mb-0">Add New Category</h2>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- [ breadcrumb ] end -->
+      <!-- [ Main Content ] start -->
+      <div class="row">
+        <!-- [ sample-page ] start -->
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6" style="width: 100%;">
+                  <div class="card">
+                    <div class="card-body">
+                      <form method ="post">
+                        {% csrf_token %}
+                      <div class="form-group">
+                        <label class="form-label">Category Name</label>
+                        {{ form.title }}
+                      </div>
+<!--                      <div class="form-group">-->
+<!--                        <label class="form-label">Product Description</label>-->
+<!--                        {{ form.description}}-->
+<!--                      </div>-->
+<!--                      <div class="form-group">-->
+<!--                        <label class="form-label">Category</label>-->
+<!--                        {{ form.category }}-->
+<!--                      </div>-->
+<!--                      <div class="form-group">-->
+<!--                        <label class="form-label">Price</label>-->
+<!--                        <select class="form-select">-->
+<!--                          <option>$ 100</option>-->
+<!--                          <option>$ 200</option>-->
+<!--                          <option>$ 300</option>-->
+<!--                          <option>$ 400</option>-->
+<!--                          <option>$ 500</option>-->
+<!--                        </select>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="col-md-6">-->
+<!--                  <div class="card">-->
+<!--                    <div class="card-body">-->
+<!--                      <div class="form-group">-->
+<!--                        <label class="form-label">Qty</label>-->
+<!--                        <select class="form-select">-->
+<!--                          <option>1</option>-->
+<!--                          <option>2</option>-->
+<!--                          <option>3</option>-->
+<!--                          <option>4</option>-->
+<!--                          <option>5</option>-->
+<!--                        </select>-->
+<!--                      </div>-->
+<!--                      <div class="form-group">-->
+<!--                        <label class="form-label">Status</label>-->
+<!--                        <select class="form-select">-->
+<!--                          <option>In Stock</option>-->
+<!--                          <option>Out of Stock</option>-->
+<!--                        </select>-->
+<!--                      </div>-->
+<!--                      <div class="form-group">-->
+<!--                        <p><span class="text-danger">*</span> Recommended resolution is 640*640 with file size</p>-->
+<!--                        <label class="btn btn-outline-secondary" for="flupld"><i class="ti ti-upload me-2"></i> Click to Upload</label>-->
+<!--                        <input type="file" id="flupld" class="d-none">-->
+<!--                      </div>-->
+                      <div class="text-end btn-page mb-0 mt-4">
+                        {% if 'edit' == edit %}
+                          <button type="submit" class="btn btn-primary">Save</button>
+                        {% else %}
+                          <button type="submit" class="btn btn-primary">Add</button>
+                        {% endif %}
+                      </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- [ sample-page ] end -->
+      </div>
+      <!-- [ Main Content ] end -->
+    </div>
+  </div>
+  <!-- [ Main Content ] end -->
+   <!-- Required Js -->
+
+
+
+  {% include 'dashboard/setting.html' %}
+{% endblock %}
+

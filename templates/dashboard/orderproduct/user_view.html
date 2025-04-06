@@ -1,0 +1,130 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+<!-- [ Header Topbar ] start -->
+{% include 'dashboard/topbar2.html' %}
+<!-- [ Header ] end -->
+
+
+
+  <!-- [ Main Content ] start -->
+  <div class="pc-container">
+    <div class="pc-content">
+      <!-- [ breadcrumb ] start -->
+      <div class="page-header">
+        <div class="page-block">
+          <div class="row align-items-center">
+            <div class="col-md-12">
+              <ul class="breadcrumb">
+<!--                <li class="breadcrumb-item"><a href="../dashboard/index.html">Home</a></li>-->
+                <li class="breadcrumb-item"><a href="{% url 'users_list' %}">Users list</a></li>
+                  {% for cus in customer %}
+                <li class="breadcrumb-item"><a href="{% url 'user_edit' pk=cus.customer_id %}">User</a></li>{% endfor %}
+                <li class="breadcrumb-item" aria-current="page">User's Cart</li>
+              </ul>
+            </div>
+            <div class="col-md-12">
+              <div class="page-header-title">
+                <h2 class="mb-0">User's Cart</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- [ breadcrumb ] end -->
+
+      <!-- [ Main Content ] start -->
+      <div class="row">
+        <!-- [ sample-page ] start -->
+        <div class="col-sm-12">
+          <div class="card table-card">
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-hover" id="pc-dt-simple">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>#</th>
+                      <th>Product Title</th>
+                      <th>Product Count</th>
+                      <th>Product Price</th>
+                      <th>Created at</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for product in orderproduct_list %}
+                    <tr>
+                      <td>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox">
+                        </div>
+                      </td>
+                      <td>{{ product.id }}</td>
+                      <td>
+                        <div class="row">
+<!--                          <div class="col-auto pe-0">-->
+<!--                            <img src="../assets/images/user/avatar-1.jpg" alt="user-image"-->
+<!--                              class="wid-40 rounded-circle">-->
+<!--                          </div>-->
+                          <div class="col">
+                            <h5 class="mb-0">{{ product.title }}</h5>
+<!--                            <p class="text-muted f-12 mb-0">mareva@gmail.com</p>-->
+                          </div>
+                        </div>
+                      </td>
+                      <td>{{ product.count }}</td>
+                      <td>{{ product.price }}</td>
+                      <td>{{ product.created_at }}</td>
+<!--                      <td>United Kingdom</td>-->
+<!--                      <td><span class="badge bg-light-success rounded-pill f-12">Verified</span> </td>-->
+<!--                      <td class="text-center">-->
+<!--                        <ul class="list-inline me-auto mb-0">-->
+
+<!--                          <li class="list-inline-item align-bottom" data-bs-toggle="tooltip" title="Edit">-->
+<!--                            <a href="{% url 'user_edit' pk=user.id %}" class="avtar avtar-xs btn-link-primary"-->
+<!--                              data-bs-target="#user-edit_add-modal">-->
+<!--                              <i class="ti ti-edit-circle f-18"></i>-->
+<!--                            </a>-->
+<!--                          </li>-->
+<!--                          <li class="list-inline-item align-bottom" data-bs-toggle="tooltip" title="Delete">-->
+<!--                            <a href="{% url 'user_delete' pk=user.id %}" class="avtar avtar-xs btn-link-danger">-->
+<!--                              <i class="ti ti-trash f-18"></i>-->
+<!--                            </a>-->
+<!--                          </li>-->
+<!--                        </ul>-->
+<!--                      </td>-->
+                    </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- [ sample-page ] end -->
+      </div>
+      <!-- [ Main Content ] end -->
+    </div>
+  </div>
+
+
+
+  <!-- [ Main Content ] end -->
+
+
+
+
+  <!-- [Page Specific JS] start -->
+  <script src="{% static 'dashboard/assets/js/plugins/simple-datatables.js' %}"></script>
+  <script>
+    const dataTable = new simpleDatatables.DataTable('#pc-dt-simple', {
+      sortable: false,
+      perPage: 5
+    });
+  </script>
+  <!-- [Page Specific JS] end -->
+  {% include 'dashboard/setting.html' %}
+{% endblock %}
+<!-- [Body] end -->
+

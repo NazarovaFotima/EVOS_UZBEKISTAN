@@ -1,0 +1,117 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+ <!-- [ Header Topbar ] start -->
+{% include 'dashboard/topbar2.html' %}
+<!-- [ Header ] end -->
+
+
+
+  <!-- [ Main Content ] start -->
+  <div class="pc-container">
+    <div class="pc-content">
+      <!-- [ breadcrumb ] start -->
+      <div class="page-header">
+        <div class="page-block">
+          <div class="row align-items-center">
+            <div class="col-md-12">
+              <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'main_dashboard' %}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'product_list' %}">Product list</a></li>
+                {% if 'edit' == edit %}
+                <li class="breadcrumb-item" aria-current="page">Edit Product</li>
+                {% else %}
+                <li class="breadcrumb-item" aria-current="page">Add New Product</li>
+                {% endif %}
+              </ul>
+            </div>
+            <div class="col-md-12">
+              <div class="page-header-title">
+                {% if 'edit' == edit %}
+                  <h2 class="mb-0">Edit Product</h2>
+                {% else %}
+                  <h2 class="mb-0">Add New Product</h2>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- [ breadcrumb ] end -->
+      <!-- [ Main Content ] start -->
+      <div class="row">
+        <!-- [ sample-page ] start -->
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6" style="width: 100%;">
+                  <div class="card">
+                    <div class="card-body">
+                      <form method ="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                      <div class="form-group">
+                        <label class="form-label">Product Name</label>
+                        {{ form.title }}
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label">Description</label>
+                        {{ form.description }}
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label">Category</label>
+                        {{ form.category }}
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label">Price</label>
+                        {{ form.price }}
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label">Cost</label>
+                        {{ form.cost }}
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label">Image</label>
+                        {{ form.image }}
+                      </div>
+                      <div class="text-end btn-page mb-0 mt-4">
+                        {% if 'edit' == edit %}
+                          <button type="submit" class="btn btn-primary">Save</button>
+                        {% else %}
+                          <button type="submit" class="btn btn-primary">Add</button>
+                        {% endif %}
+                      </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- [ sample-page ] end -->
+      </div>
+      <!-- [ Main Content ] end -->
+    </div>
+  </div>
+  <!-- [ Main Content ] end -->
+ <!-- Required Js -->
+
+
+
+  {% include 'dashboard/setting.html' %}
+<script>
+    function loadFile(event) {
+        const output = document.getElementById('preview');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.onload = () => {
+            URL.revokeObjectURL(output.src); // Free memory
+        };
+    }
+</script>
+{% endblock %}
+
+
+
+

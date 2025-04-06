@@ -1,0 +1,205 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+<!-- [ Header Topbar ] start -->
+{% include 'dashboard/topbar2.html' %}
+<!-- [ Header ] end -->
+
+
+
+  <!-- [ Main Content ] start -->
+  <div class="pc-container">
+    <div class="pc-content">
+      <!-- [ breadcrumb ] start -->
+      <div class="page-header">
+        <div class="page-block">
+          <div class="row align-items-center">
+            <div class="col-md-12">
+              <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="../dashboard/index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="javascript: void(0)">Profile</a></li>
+                <li class="breadcrumb-item" aria-current="page">Order List</li>
+              </ul>
+            </div>
+            <div class="col-md-12">
+              <div class="page-header-title">
+                <h2 class="mb-0">Orders List</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- [ breadcrumb ] end -->
+
+      <!-- [ Main Content ] start -->
+      <div class="row">
+        <!-- [ sample-page ] start -->
+        <div class="col-sm-12">
+          <div class="card table-card">
+            <div class="card-body">
+<!--              <div class="text-end p-4 pb-0">-->
+<!--                <a href="{% url 'user_create' %}" class="btn btn-primary d-inline-flex align-item-center" data-bs-toggle="modal" data-bs-target="#user-edit_add-modal">-->
+<!--                  <i class="ti ti-plus f-18"></i> Add User-->
+<!--                </a>-->
+<!--              </div>-->
+              <div class="table-responsive">
+                <table class="table table-hover" id="pc-dt-simple">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                       <th></th>
+                       <th>Customer</th>
+                        <th>Address</th>
+                        <th>Payment type</th>
+                        <th>Created at</th>
+                      <th class="text-center">Cart</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for order in orders %}
+                    <tr>
+                      <td>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox">
+                        </div>
+                      </td>
+                      <td>{{ order.id }}</td>
+                      <td>
+                        <div class="row">
+<!--                          <div class="col-auto pe-0">-->
+<!--                            <img src="../assets/images/user/avatar-1.jpg" alt="user-image"-->
+<!--                              class="wid-40 rounded-circle">-->
+<!--                          </div>-->
+                          <div class="col">
+                            <h5 class="mb-0">{{ order.customer }}</h5>
+<!--                            <p class="text-muted f-12 mb-0">mareva@gmail.com</p>-->
+                          </div>
+                        </div>
+                      </td>
+                      <td>{{ order.address }}</td>
+                      <td>{% if order.payment_type == 1 %}naqt{% else %}karta{% endif %}</td>
+                      <td>{{ order.created_at }}</td>
+<!--                      <td>United Kingdom</td>-->
+<!--                      <td><span class="badge bg-light-success rounded-pill f-12">Verified</span> </td>-->
+                      <td class="text-center">
+                        <ul class="list-inline me-auto mb-0">
+                          <li class="list-inline-item align-bottom" data-bs-toggle="tooltip" title="View">
+                            <a href="{% url 'orderproduct_list' pk=order.id %}" class="avtar avtar-xs btn-link-secondary"
+                              data-bs-target="#user-modal">
+                              <i class="ti ti-eye f-18"></i>
+                            </a>
+                          </li>
+<!--                          <li class="list-inline-item align-bottom" data-bs-toggle="tooltip" title="Edit">-->
+<!--                            <a href="{% url 'user_edit' pk=user.id %}" class="avtar avtar-xs btn-link-primary" data-bs-toggle="modal"-->
+<!--                              data-bs-target="#user-edit_add-modal">-->
+<!--                              <i class="ti ti-edit-circle f-18"></i>-->
+<!--                            </a>-->
+<!--                          </li>-->
+<!--                          <li class="list-inline-item align-bottom" data-bs-toggle="tooltip" title="Delete">-->
+<!--                            <a href="{% url 'user_delete' pk=user.id %}" class="avtar avtar-xs btn-link-danger">-->
+<!--                              <i class="ti ti-trash f-18"></i>-->
+<!--                            </a>-->
+<!--                          </li>-->
+                        </ul>
+                      </td>
+                    </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- [ sample-page ] end -->
+      </div>
+      <!-- [ Main Content ] end -->
+    </div>
+  </div>
+  <div class="modal fade" id="user-modal" data-bs-keyboard="false" tabindex="-1"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header border-0 pb-0">
+          <h5 class="mb-0">Customer Orders</h5>
+          <a href="#" class="avtar avtar-s btn-link-danger" data-bs-dismiss="modal">
+            <i class="ti ti-x f-20"></i>
+          </a>
+        </div>
+
+        <div class="modal-body">
+          <div class="row">
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>First Name</th>
+                      <th>Last Name</th>
+                      <th>Address</th>
+                      <th>Status</th>
+                      <th>Payment type</th>
+                      <th>Created at</th>
+                      <th class="text-center">Cart</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for customer in customer_orders %}
+                    <tr>
+                      <td>{{ customer.id }}</td>
+                      <td>
+                        <div class="row">
+<!--                          <div class="col-auto pe-0">-->
+<!--                            <img src="../assets/images/user/avatar-1.jpg" alt="user-image"-->
+<!--                              class="wid-40 rounded-circle">-->
+<!--                          </div>-->
+                          <div class="col">
+                            <h5 class="mb-0">{{ customer.first_name }}</h5>
+<!--                            <p class="text-muted f-12 mb-0">mareva@gmail.com</p>-->
+                          </div>
+                        </div>
+                      </td>
+                      <td>{{ customer.last_name }}</td>
+                      <td>{{ customer.address }}</td>
+                      <td>{{ customer.status}}</td>
+                      <td>{% if order.payment_type == 1 %}naqt{% else %}karta{% endif %}</td>
+                      <td>{{ customer.created_at }}</td>
+<!--                      <td>United Kingdom</td>-->
+<!--                      <td><span class="badge bg-light-success rounded-pill f-12">Verified</span> </td>-->
+                      <td class="text-center">
+                        <ul class="list-inline me-auto mb-0">
+                          <li class="list-inline-item align-bottom" data-bs-toggle="tooltip" title="View">
+                            <a href="#" class="avtar avtar-xs btn-link-secondary" data-bs-toggle="modal"
+                              data-bs-target="#user-modal">
+                              <i class="ti ti-eye f-18"></i>
+                            </a>
+                          </li>
+                        </ul>
+                      </td>
+                    </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- [ Main Content ] end -->
+
+  <!-- [Page Specific JS] start -->
+  <script src="{% static 'dashboard/assets/js/plugins/simple-datatables.js' %}"></script>
+  <script>
+    const dataTable = new simpleDatatables.DataTable('#pc-dt-simple', {
+      sortable: false,
+      perPage: 5
+    });
+  </script>
+  <!-- [Page Specific JS] end -->
+  {% include 'dashboard/setting.html' %}
+{% endblock %}
+<!-- [Body] end -->
+
